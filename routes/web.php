@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
@@ -8,22 +9,19 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/jobs', function () {
+Route::get('/jobs', [JobController::class, 'index']);
 
-    // $jobs = Job::with('employer')->paginate(4);
-    $jobs = Job::with('employer')->simplePaginate(4);
+Route::get('/jobs/create', [JobController::class, 'create']);
 
-    return view('jobs', [
-        'jobs' => $jobs
-    ]);
-});
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 
-Route::get('/jobs/{id}', function ($id) {
+Route::post('/jobs', [JobController::class, 'store']);
 
-    $job = Job::find($id);
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
 
-    return view('job', ['job' => $job]);
-});
+Route::patch('/jobs/{job}', [JobController::class, 'update']);
+
+Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
 Route::get('/contact', function () {
     return view('contact');
