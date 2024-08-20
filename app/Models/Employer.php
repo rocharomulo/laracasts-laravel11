@@ -13,4 +13,14 @@ class Employer extends Model
     {
         return $this->hasMany(Job::class);
     }
+
+    /**
+     * Get the user that owns the Employer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -6,7 +6,10 @@
     <p>
         Salário deste cargo: {{ $job['salary'] }}
     </p>
-    <p class='mt-6'>
-        <x-button href="/jobs/{{ $job->id }}/edit">Edit job</x-button>
-    </p>
+
+    @can('edit-job', $job)
+        <p class='mt-6'>
+            <x-button href="/jobs/{{ $job->id }}/edit">Edit job</x-button>
+        </p>
+    @endcan
 </x-layout>
